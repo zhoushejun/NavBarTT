@@ -7,7 +7,14 @@
 //
 
 #import "AppDelegate.h"
+#import "ViewController.h"
 
+/** @name 获取屏幕 宽度、高度 */
+// @{
+/** @attention 勿删 */
+#define SCREEN_WIDTH  ([UIScreen mainScreen].bounds.size.width)
+#define SCREEN_HEIGHT ([UIScreen mainScreen].bounds.size.height)
+// @}end of 获取屏幕 宽度、高度
 @interface AppDelegate ()
 
 @end
@@ -17,6 +24,24 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.window.backgroundColor = [UIColor whiteColor];
+    ViewController *viewController = [[ViewController alloc] init];
+    UINavigationController *NavigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+    NavigationController.navigationBar.hidden = NO;
+    NavigationController.navigationBar.barTintColor = [UIColor orangeColor];
+    NavigationController.navigationBar.translucent = NO;
+    UIImage *bgImage = [UIImage imageNamed:@"ic_title_bar_bg_green"];
+    [NavigationController.navigationBar setBackgroundImage:bgImage forBarMetrics:UIBarMetricsDefault];
+    NavigationController.navigationBar.shadowImage = [UIImage imageNamed:@"ic_title_bar_bg_green_line"];
+    
+    UIImageView *imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"ic_title_bar_bg_green"]];
+    imgV.frame = CGRectMake(0, -20, SCREEN_WIDTH, 20);
+    [NavigationController.navigationBar addSubview:imgV];
+    
+    [self.window setRootViewController:NavigationController];
+    
+    [self.window makeKeyAndVisible];
     return YES;
 }
 
